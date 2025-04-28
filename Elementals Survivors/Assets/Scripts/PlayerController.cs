@@ -1,9 +1,17 @@
-using UnityEditor.Experimental.GraphView;
+
 using UnityEngine;
 using UnityEngine.Rendering;
-
+using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
+    public Texture2D cursorTexture;
+    public CursorMode cursorMode = CursorMode.Auto;
+    public Vector2 hotSpot = Vector2.zero;
+
+    void OnMouseEnter()
+    {
+        
+    }
     [SerializeField] private float walkSpeed = 7f;
     [SerializeField] private float turnSpeed = 25f;
     [SerializeField] private GameInput gameInput;
@@ -24,13 +32,27 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
     }
+    private void Start()
+    {
+        Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+     
+    }
     private void Update()
     {
         Vector2 inputDirection = gameInput.GetMovementVectorNormalized();
         Vector3 movingDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
         Vector3 amountToAdd = movingDirection * walkSpeed * Time.deltaTime;
         rb.MovePosition(rb.position + amountToAdd);
-        rb.rotation = Quaternion.Slerp(rb.rotation, Quaternion.LookRotation(movingDirection), Time.deltaTime * turnSpeed);
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            Debug.Log("Hit " + hit.collider.name + " at position " + hit.point);
+            Vector3 lookingDirection = new Vector3(hit.point.x, transform.position.y, hit.point.z) - transform.position;
+            rb.rotation = Quaternion.Slerp(rb.rotation, Quaternion.LookRotation(lookingDirection), Time.deltaTime * turnSpeed);
+        }
+        
         if (!isSimulatingForce && powerSeconds <= 0)
         {
             rb.linearVelocity /= stopSharpness;

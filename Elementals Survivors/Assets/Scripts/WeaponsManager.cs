@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WeaponsManager : MonoBehaviour
 {
@@ -99,7 +100,7 @@ public class WeaponsManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.T))
+        if(Keyboard.current.tKey.wasPressedThisFrame)
         {
             EquipNextElement();
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class EnemiesManager : MonoBehaviour
 {
+    [SerializeField] private int maxEnemies = 200;
     [SerializeField] private Transform player;
     [SerializeField] public List<GameObject> allEnemiePrefabs = new List<GameObject>();
     /*[SerializeField] private GameObject[] Wave1Enemies;
@@ -13,7 +14,12 @@ public class EnemiesManager : MonoBehaviour
     private List<GameObject> enemiesInScene = new List<GameObject>();
     public void AddEnemy(GameObject enemy,Vector3 pos)
     {
-        if(allEnemiePrefabs.Contains(enemy))
+        if (enemiesInScene.Count >= maxEnemies)
+        {
+            Debug.Log("Max enemies reached");
+            return;
+        }
+        if (allEnemiePrefabs.Contains(enemy))
         {
             GameObject newEnemy = Instantiate(enemy, pos, Quaternion.Euler(0, 0, 0));
             newEnemy.GetComponent<Enemy>().target = player;

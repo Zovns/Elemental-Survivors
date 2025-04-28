@@ -34,6 +34,12 @@ public class Weapon : MonoBehaviour
 
         while (timePassed < timeToHit)
         {
+            if (closestEnemyToPlayer == null)
+            {
+                lastHitSeconds = 0;
+                canSpin = true;
+                yield break;
+            }
             float progress = timePassed / timeToHit;
             targetPosition = closestEnemyToPlayer.transform.position;
             Vector3 currentVector3 = Vector3.Slerp(startPosition, targetPosition, progress);
@@ -43,8 +49,13 @@ public class Weapon : MonoBehaviour
             yield return null;
 
         }
-     
-       
+
+        if (closestEnemyToPlayer == null)
+        {
+            lastHitSeconds = 0;
+            canSpin = true;
+            yield break;
+        }
         transform.position = closestEnemyToPlayer.transform.position;
         Vector3 enemyPos = transform.position;
         if (weaponElement == closestEnemyToPlayer.GetComponent<Enemy>().element.weakAgainst)

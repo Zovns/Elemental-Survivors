@@ -20,7 +20,6 @@ public class XP : MonoBehaviour
             yield return new WaitUntil(() => player != null);
         }
       
-        Debug.Log("finished waiting for player");
         playerUpgrades = player.gameObject.GetComponent<PlayerUpgrades>();
     }
     void Start()
@@ -39,8 +38,9 @@ public class XP : MonoBehaviour
         {
             float distance = Vector3.Distance(transform.position, player.position);
            
-            if (distance < playerUpgrades.magnetDistance)
+            if (distance < playerUpgrades.magnetDistanceLevels[playerUpgrades.magnetLevel -1])
             {
+                Debug.Log("Distance is : " + distance + " And magnet power is " + playerUpgrades.magnetDistanceLevels[playerUpgrades.magnetLevel - 1]);
                 moving = true;
                 StartCoroutine(MoveXpToPlayer());
             }

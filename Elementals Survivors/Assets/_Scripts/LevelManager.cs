@@ -6,6 +6,7 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] private GameObject levelBar;
     [SerializeField] private GameObject levelText;
+    [SerializeField] private PlayerUpgrades playerUpgrades;
     private Bar levelBarBar;
     //index + 2 is the level and the value is the required xp to reach that level
     [SerializeField] private float[] xpToLevelUp;
@@ -47,6 +48,7 @@ public class LevelManager : MonoBehaviour
         if (xpPoints >= xpToLevelUp[Level - 1])
         {
             Level++;
+            StartCoroutine(playerUpgrades.OpenUpgradesFrame());
             if (Level == maxLevel)
             {
                 levelUpPercentage = 1;

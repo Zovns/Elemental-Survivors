@@ -12,7 +12,6 @@ public class Bar : MonoBehaviour
         get { return size; }
         set {
             size = value;
-            Debug.Log( value );
             //bar.localScale = new Vector3(size, 1, 1);
             
             double backgroundWidth = backgroundRect.sizeDelta.x;

@@ -3,11 +3,12 @@ using UnityEngine.InputSystem;
 
 public class Gun : MonoBehaviour
 {
+    [SerializeField] private PlayerUpgrades playerUpgrades;
     [SerializeField] GameObject player;
     [SerializeField] WeaponsManager weaponsManager;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] EnemiesManager enemiesManager;
-    [SerializeField] private float fireRate = 0.5f;
+
     [SerializeField] private bool canShoot = true;
 
     private void shoot(Vector3 direction)
@@ -66,7 +67,7 @@ public class Gun : MonoBehaviour
 
                 canShoot = false;
                 shoot(direction);
-                Invoke(nameof(ResetCanShoot), fireRate);
+                Invoke(nameof(ResetCanShoot), playerUpgrades.fireRateLevels[playerUpgrades.fireRateLevel - 1]);
             }
         }
     }

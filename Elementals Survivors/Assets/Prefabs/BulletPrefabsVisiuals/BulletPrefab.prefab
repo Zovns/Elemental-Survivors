@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f915251463403a146bc155d36e838152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponsManager: {fileID: 0}
   direction: {x: 0, y: 0, z: 0}
   enemiesManager: {fileID: 0}
   element: {fileID: 0}
@@ -54,7 +55,7 @@ MonoBehaviour:
   - {fileID: 1698570956492434231, guid: b35cc102a1a9bfa4b9bb0e6ff4224539, type: 3}
   - {fileID: 1698570956492434231, guid: 8ffea42ac6f2e334d87f03d161ea8896, type: 3}
   - {fileID: 1698570956492434231, guid: e34fc6893c05b6b4b88c4f2d37e1f5bf, type: 3}
-  speed: 35
+  speed: 15
   lifetime: 5
 --- !u!135 &2570444525156068991
 SphereCollider:
